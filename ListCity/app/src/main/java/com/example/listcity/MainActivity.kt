@@ -27,7 +27,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -110,13 +114,29 @@ fun CityListScreen(
     var newCityName by remember {mutableStateOf("")}
 
     Column(modifier = modifier.fillMaxSize()){
-        Row(modifier = Modifier.padding(16.dp)) {
-            OutlinedTextField(
-                value = newCityName,
-                onValueChange = {newCityName = it},
-                label = {Text("City name")},
-                modifier = Modifier.weight(1f)
-            )
+
+        Text("List City",
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(0.dp, 8.dp),
+            fontSize = 30.sp,
+            color = Color.Gray,
+            fontWeight = FontWeight.Bold)
+
+
+        OutlinedTextField(
+            value = newCityName,
+            onValueChange = {newCityName = it},
+            label = {Text("City name")},
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(8.dp)
+                .fillMaxWidth()
+        )
+        Row(modifier = Modifier
+            .padding(16.dp)
+            .align(Alignment.CenterHorizontally)) {
+
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -132,6 +152,8 @@ fun CityListScreen(
                 Text("Add City")
             }
 
+            Spacer(modifier = Modifier.width(8.dp))
+
             Button(
                 onClick = {
                     if(newCityName.isNotBlank()){
@@ -145,7 +167,7 @@ fun CityListScreen(
             }
         }
 
-        LazyColumn(modifier = modifier.fillMaxSize()) {
+        LazyColumn() {
             items(cities){city ->
                 CityRow(city = city)
 
